@@ -14,7 +14,7 @@
 </head>
 
 <body onload="proc()">
-  <audio id="a1" autoplay loop="0" music.volume="-20">
+  <audio id="a1" autoplay loop="0" music.volume="">
     <source src="./mp3/mushikingbgm.mp3" type="audio/mp3">
   </audio>
   <!-- プレイ画面 -->
@@ -22,7 +22,7 @@
     <div class="player-side">
       <div class="player-mushi"><img id="mushidata" src="./img/hatena.jpg" alt=""></div>
       <div class="player-hp">
-        <p>HP　</p>
+        <p>HP</p>
         <p id="player_hp">???</p>
       </div>
       <div class="janken-box">
@@ -33,22 +33,25 @@
     </div>
 
     <div class="game-center">
-      <div id="center_screen"><img id="center_screen_img" src="" alt=""></div>
-      <div class="text-box">
-        <p id="text_items1">森のボス　ギラファクワガタだ！</p>
-        <p id="text_items2">じゃんけんに勝ってダメージを与えるんだ</p>
-        <p id="text_items3"></p>
+      <div id="center_screen">
+        <img id="center_screen_img" src="" alt="">
       </div>
       <div class="hand-box">
         <img id="player_hand" src="./img/hatena.jpg" alt="">
         <img id="com_hand" src="./img/hatena.jpg" alt="">
       </div>
+      <div class="text-box">
+        <p id="text_items1">森のボス　ギラファクワガタだ！</p>
+        <p id="text_items2">じゃんけんに勝ってダメージを与えるんだ</p>
+        <p id="text_items3"></p>
+      </div>
+
     </div>
 
     <div class="enemy-side">
       <div class="player-mushi"><img id="enemy_mushi" src="./mushi.img/girafa.jpg" alt=""></div>
       <div class="enemy-hp">
-        <p>HP　</p>
+        <p>HP</p>
         <p id="enemy_hp">180</p>
       </div>
       <div class="janken-box">
