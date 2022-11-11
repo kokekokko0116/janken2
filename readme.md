@@ -1,6 +1,6 @@
 # ムシキングスマホ対応　バージョン
 
-## DEMO
+## やってみてね
 
   - https://kokekokko0116.github.io/janken2/
 
