@@ -78,20 +78,20 @@ const wno_p    = Number(playerdata[6]);
 
 
 //虫データ格納庫
-const ougononni =[180,40,90,45,45,180]; //[強さ、テクニック、グー、チョキ、パー,hp,技の名前]
-const herukures =[200,30,50,50,100,200,"rollingdriver"];
-const kokuwagata =[100,100,40,20,20,120,"rollingsmash"];
-const supekiosis =[100,100,20,40,20,120,"runnningcutter"];
-const girafa     =[200,30,55,110,55,180,"bullrock"];
+const ougononni =[180,40,90,45,45,180,"ヒャクレツケン"]; //[強さ、テクニック、グー、チョキ、パー,hp,技の名前]
+const herukures =[200,30,50,50,100,200,"ローリングドライバー"];
+const kokuwagata =[100,100,40,20,20,120,"スーパーローリングスマッシュ"];
+const supekiosis =[100,100,20,40,20,120,"スーパーランニングカッター"];
+const girafa     =[200,30,55,110,55,180,"ブルロック"];
 const mushi_datacontainer=[ougononni,herukures,kokuwagata,supekiosis, girafa];
 const guwaza_container =[20,50,80,80];
 const chokiwaza_container=[80,20,20,50];
 const parwaza_container=[20,50,80,20];
 
 //技の名前を格納し、必殺技や技の表記で利用
-const guwaza_name=["hyakuretsuken","dragonattack","rollingsmash","hayate"];
-const chokiwaza_name=["runningcutter","bullrock","crossdive","rollingclatch"];
-const parwaza_name=["rollingdriver","sycronhoip","tornade","earth"];
+const guwaza_name=["ヒャクレツケン","dragonattack","スーパーローリングスマッシュ","hayate"];
+const chokiwaza_name=["runningcutter","ブルロック","crossdive","rollingclatch"];
+const parwaza_name=["ローリングドライバー","sycronhoip","tornade","earth"];
 
 
 let  p_hp = mushi_datacontainer[mushi_no][5];
@@ -180,6 +180,9 @@ $("#gu_btn").on("click", function () {
     $("#com_hand").attr("src", "./img/choki.jpg");
     if(mushi_datacontainer[mushi_no][6] === guwaza_name[wno_g]){
       e_hp -= player_gu_damage * 1.1;
+      $("#text_items1").text("必殺技発動だ！");
+      $("#text_items2").text(guwaza_name[wno_g]);
+      $("#text_items3").text("");
     }else {e_hp -= player_gu_damage;}
     $("#enemy_hp").text(e_hp);
     effect_play();
@@ -213,6 +216,9 @@ $("#cho_btn").on("click", function () {
     $("#com_hand").attr("src", "./img/par.jpg");
     if(mushi_datacontainer[mushi_no][6] === chokiwaza_name[wno_c]){
       e_hp -= player_choki_damage * 1.1;
+      $("#text_items1").text("必殺技発動だ！");
+      $("#text_items2").text(chokiwaza_name[wno_c]);
+      $("#text_items3").text("");
     }else{e_hp -= player_choki_damage;}
     $("#enemy_hp").text(e_hp);
     effect_play();
@@ -229,6 +235,9 @@ $("#par_btn").on("click", function () {
     $("#com_hand").attr("src", "./img/gu.jpg");
     if(mushi_datacontainer[mushi_no][6] === parwaza_name[wno_p]){
       e_hp -= player_par_damage * 1.1;
+      $("#text_items1").text("必殺技発動だ！");
+      $("#text_items2").text(parwaza_name[wno_p]);
+      $("#text_items3").text("");
     }else {e_hp -= player_par_damage;}
     $("#enemy_hp").text(e_hp);
     effect_play();
@@ -244,6 +253,6 @@ $("#par_btn").on("click", function () {
     $("#enemy_hp").text(e_hp);
     document.getElementById("aiko_audio").play(); //音を再生
   }
-  zikkyo;
+  zikkyo();
 });
 
