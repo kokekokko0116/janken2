@@ -78,15 +78,21 @@ const wno_p    = Number(playerdata[6]);
 
 
 //虫データ格納庫
-const ougononni =[180,40,90,45,45,180]; //[強さ、テクニック、グー、チョキ、パー,hp]
-const herukures =[200,30,50,50,100,200];
-const kokuwagata =[100,100,40,20,20,120];
-const supekiosis =[100,100,20,40,20,120];
-const girafa     =[200,30,55,110,55,180];
+const ougononni =[180,40,90,45,45,180]; //[強さ、テクニック、グー、チョキ、パー,hp,技の名前]
+const herukures =[200,30,50,50,100,200,"rollingdriver"];
+const kokuwagata =[100,100,40,20,20,120,"rollingsmash"];
+const supekiosis =[100,100,20,40,20,120,"runnningcutter"];
+const girafa     =[200,30,55,110,55,180,"bullrock"];
 const mushi_datacontainer=[ougononni,herukures,kokuwagata,supekiosis, girafa];
 const guwaza_container =[20,50,80,80];
 const chokiwaza_container=[80,20,20,50];
 const parwaza_container=[20,50,80,20];
+
+//技の名前を格納し、必殺技や技の表記で利用
+const guwaza_name=["hyakuretsuken","dragonattack","rollingsmash","hayate"];
+const chokiwaza_name=["runningcutter","bullrock","crossdive","rollingclatch"];
+const parwaza_name=["rollingdriver","sycronhoip","tornade","earth"];
+
 
 let  p_hp = mushi_datacontainer[mushi_no][5];
 let  e_hp = 180;
@@ -94,7 +100,7 @@ let  e_hp = 180;
 // BGM
   // 特定のidのaudioの音量設定
   const a1=document.getElementById('a1'); 
-  a1.volume = 0.2; // 0〜1 の間で
+  a1.volume = 1; // 0〜1 の間で
 
 // ダメージ計算式 必殺技は後から計算式に？？
 // {(([技・虫テクニック最小値]+[技・虫テクニック最小値])*40/技テクニック値)+(([つよさ]*0.6+[じゃんけん威力]+[技・虫テクニック最小値])/4)}*0.3
@@ -116,8 +122,47 @@ const enemy_par_damage    = 24; //ダイシャリン
 $("#center_screen").attr("src", "");
 
 
-// じゃんけんの挙動
+// 効果音、gif動画の再生の関数定義
 let effect;
+function effect_play(){
+  if(effect === 0){
+    $("#center_screen_img").attr("src", "./gif/zangeki.gif");
+    document.getElementById("effect_audio1").play(); //クリックしたら音を再生
+  }else if(effect === 1){
+    $("#center_screen_img").attr("src", "./gif/rightning.gif");
+    document.getElementById("effect_audio3").play(); //音を再生
+  }else if(effect === 2){
+    $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
+    document.getElementById("effect_audio2").play(); //音を再生
+  }
+}
+// 必殺ワザ確認サンプル
+// if(mushi_datacontainer[mushi_no][6] === guwaza_name[wno_g]){
+//   e_hp -= player_gu_damage * 1.1;
+// }
+// if(mushi_datacontainer[mushi_no][6] === chokiwaza_name[wno_c]){
+//   e_hp -= player_choki_damage * 1.1;
+// }
+// if(mushi_datacontainer[mushi_no][6] === parwaza_name[wno_p]){
+//   e_hp -= player_par_damage * 1.1;
+// }
+
+// 実況発動関数
+function zikkyo(){
+  if(p_hp <= 0){
+    $("#text_items1").text("YOU DIE");
+    $("#text_items2").text("君は負けてしまった");
+    $("#text_items3").text("");
+    $("#player_hp").text("0");
+  }
+  else if(e_hp <= 0){
+    $("#text_items1").text("YOU WIN");
+    $("#text_items2").text("君の勝ちだ！");
+    $("#text_items3").text("森を救ってくれてありがとう");
+    $("#enemy_hp").text("0");
+  }
+}
+
 
 //グー
 $("#gu_btn").on("click", function () {
@@ -130,35 +175,22 @@ $("#gu_btn").on("click", function () {
     $("#player_hp").text(p_hp);
     $("#enemy_hp").text(e_hp);
     document.getElementById("aiko_audio").play(); //音を再生
-  } else if (janken === 1) {
+  } 
+  else if (janken === 1) {
     $("#com_hand").attr("src", "./img/choki.jpg");
-    e_hp -= player_par_damage;
+    if(mushi_datacontainer[mushi_no][6] === guwaza_name[wno_g]){
+      e_hp -= player_gu_damage * 1.1;
+    }else {e_hp -= player_gu_damage;}
     $("#enemy_hp").text(e_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
-  } else if (janken === 2) {
+    effect_play();
+  } 
+  else if (janken === 2) {
     $("#com_hand").attr("src", "./img/par.jpg");
     p_hp -= enemy_par_damage;
     $("#player_hp").text(p_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
+    effect_play();
   }
+  zikkyo();
 });
 
 //チョキ
@@ -170,16 +202,7 @@ $("#cho_btn").on("click", function () {
     $("#com_hand").attr("src", "./img/gu.jpg");
     p_hp -= enemy_gu_damage;
     $("#player_hp").text(p_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
+    effect_play();
   } else if (janken === 1) {
     $("#com_hand").attr("src", "./img/choki.jpg");
     p_hp -=10; e_hp-=10;
@@ -188,19 +211,13 @@ $("#cho_btn").on("click", function () {
     document.getElementById("aiko_audio").play(); //音を再生
   } else if (janken === 2) {
     $("#com_hand").attr("src", "./img/par.jpg");
-    e_hp -= player_par_damage;
+    if(mushi_datacontainer[mushi_no][6] === chokiwaza_name[wno_c]){
+      e_hp -= player_choki_damage * 1.1;
+    }else{e_hp -= player_choki_damage;}
     $("#enemy_hp").text(e_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
+    effect_play();
   }
+  zikkyo();
 });
 
 //パー
@@ -210,32 +227,16 @@ $("#par_btn").on("click", function () {
   effect =Math.floor(Math.random() * 3);
   if (janken === 0) {
     $("#com_hand").attr("src", "./img/gu.jpg");
-    e_hp -= player_par_damage;
+    if(mushi_datacontainer[mushi_no][6] === parwaza_name[wno_p]){
+      e_hp -= player_par_damage * 1.1;
+    }else {e_hp -= player_par_damage;}
     $("#enemy_hp").text(e_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
+    effect_play();
   } else if (janken === 1) {
     $("#com_hand").attr("src", "./img/choki.jpg");
     p_hp -= enemy_choki_damage;
     $("#player_hp").text(p_hp);
-    if(effect === 0){
-      $("#center_screen_img").attr("src", "./gif/zangeki.gif");
-      document.getElementById("effect_audio1").play(); //クリックしたら音を再生
-    }else if(effect === 1){
-      $("#center_screen_img").attr("src", "./gif/rightning.gif");
-      document.getElementById("effect_audio3").play(); //音を再生
-    }else if(effect === 2){
-      $("#center_screen_img").attr("src", "./gif/redzangeki.gif");
-      document.getElementById("effect_audio2").play(); //音を再生
-    }
+    effect_play();
   } else if (janken === 2) {
     $("#com_hand").attr("src", "./img/par.jpg");
     p_hp -=10; e_hp-=10;
@@ -243,7 +244,6 @@ $("#par_btn").on("click", function () {
     $("#enemy_hp").text(e_hp);
     document.getElementById("aiko_audio").play(); //音を再生
   }
+  zikkyo;
 });
-
-// gif
 

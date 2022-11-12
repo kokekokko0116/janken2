@@ -15,7 +15,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 25vw;
+  background-color:rgba(0,0,0,0.5);
+  border: 1px solid white;
+  border-radius: 10px;
 }
 
 .game-center {
@@ -33,6 +37,10 @@ body {
   flex-direction: column;
   align-items: center;
   width: 25vw;
+  background-color:rgba(0,0,0,0.5);
+  border: 1px solid white;
+  border-radius: 10px;
+  justify-content: center;
 }
 
 
@@ -50,21 +58,30 @@ body {
 
 
 .player-hp {
+  width: 20vw;
+  justify-content: center;
   display: flex;
-  font-size: 4vw; /* 40px */ 
+  font-size: 3vw; /* 40px */ 
   margin: 0 auto;
   object-fit: cover;
-  background-color: chartreuse;
+  text-shadow: 5px 1px 1px #000;
+  color: white;
+  font-family: 'Dela Gothic One', cursive;
   height: 10vh;
   align-items: center;
 }
 
+
 .enemy-hp {
+  width: 20vw;
+  justify-content: center;
   display: flex;
-  font-size: 4vw; /* 40px */ 
+  font-size: 3vw; /* 40px */ 
   margin: 0 auto;
   object-fit: cover;
-  background-color: chartreuse;
+  text-shadow: 5px 1px 1px #000;
+  color: white;
+  font-family: 'Dela Gothic One', cursive;
   height: 10vh;
   align-items: center;
 }
@@ -83,6 +100,7 @@ body {
   width: 50vw;
   font-family: 'Dela Gothic One', cursive;
   font-size: 2vw;
+  border-radius: 20px;
 }
 
 img{
